@@ -1,23 +1,34 @@
-﻿using System.Windows.Input;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using TestGeneratorVersionThree.Core;
+using TestGeneratorVersionThree.MVVM.View;
+using TestGeneratorVersionThree.Services;
 
 namespace TestGeneratorVersionThree.MVVM.ViewModel;
 
 public class QuestionViewModel : Core.ViewModel
 {
-    public ICommand OpenDialogCommand { get; private set; }
 
-	public QuestionViewModel()
-	{
-        OpenDialogCommand = new RelayCommand(OpenDialog);
+    public ICommand AddQuestionCommand { get; set; }
+    public ICommand SearchCommand { get; set; }
+    public ICommand EditQuestionCommand { get; set; }
+    public ICommand DeleteQuestionCommand { get; set; }
+    public ICommand Questions { get; set; }
+    public ICommand QuestionText { get; set; }
+    public ICommand Answers { get; set; }
 
-    }
-    private void OpenDialog()
+    //public RelayCommand AddQuestionCommand { get; }
+
+    public QuestionViewModel()
     {
-        // Logika otwarcia nowego okna dialogowego
-        var dialogViewModel = new DialogViewModel(); // Tworzenie ViewModelu dla okna dialogowego
-        var dialogWindow = new DialogWindow(); // Tworzenie okna dialogowego
-        dialogWindow.DataContext = dialogViewModel; // Przypisanie ViewModelu do okna dialogowego
-        dialogWindow.ShowDialog(); // Otwarcie okna dialogowego
+        AddQuestionCommand = new RelayCommand(OpenAddQuestionWindow, xD=>true);
     }
+    private void OpenAddQuestionWindow(object parameter)
+    {
+        var newWindow = new AddQuestionView();
+        newWindow.Show();
+    }
+
+
+
 }

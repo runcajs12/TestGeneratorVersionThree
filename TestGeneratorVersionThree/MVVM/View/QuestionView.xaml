@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TestGeneratorVersionThree.MVVM.View"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              mc:Ignorable="d">
+   
+
     <Grid Grid.Column="1" Margin="20" Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,7 +28,7 @@
         </StackPanel>
         <!-- Przyciski akcji -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" >
-            <Button Style="{StaticResource CustomMiniButtonStyle}" Content="Dodaj pytanie" Command="{Binding AddQuestionCommand}" Click="Button_Click" />
+            <Button Style="{StaticResource CustomMiniButtonStyle}" Content="Dodaj pytanie" Command="{Binding AddQuestionCommand}" />
             <Button Style="{StaticResource CustomMiniButtonStyle}" Content="Edytuj pytanie" Command="{Binding EditQuestionCommand}" />
             <Button Style="{StaticResource CustomMiniButtonStyle}" Content="Usuń pytanie" Command="{Binding DeleteQuestionCommand}" />
         </StackPanel>
