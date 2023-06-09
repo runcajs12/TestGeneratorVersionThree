@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestGeneratorVersionThree.MVVM.ViewModel;
 
 namespace TestGeneratorVersionThree.MVVM.View
 {
@@ -21,7 +22,10 @@ namespace TestGeneratorVersionThree.MVVM.View
     {
         public AddQuestionView()
         {
+            DataContext = new AddQuestionViewModel();
             InitializeComponent();
         }
+
+        public void xDPozdro() { }
     }
 }

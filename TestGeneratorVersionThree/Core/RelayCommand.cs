@@ -13,7 +13,10 @@ public class RelayCommand : ICommand
         _canExecute = canExecute;
         _execute = execute;
     }
-
+    public RelayCommand(Action<object> execute)
+    {
+        _execute = execute;
+    }
     public event EventHandler CanExecuteChanged
     {
         add => CommandManager.RequerySuggested += value;
