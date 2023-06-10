@@ -32,14 +32,15 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                     AnswerB = AnswerBProp,
                     AnswerC = AnswerCProp,
                     AnswerD = AnswerDProp,
-                    CorrectAnswer = CorrectAnswerProp,
+                    CorrectAnswer = _correctAnswer,
                     Category=SelectedCategory     
                 };
-                ;
+                
                 context.Questions.Add(question);
                 context.SaveChanges();
             }
             MessageBox.Show("Pytanie zostało dodane.");
+
         }
         #region Properties
         private string _question;
@@ -116,7 +117,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
             }
             set
             {
-                _correctAnswer = value;
+                _correctAnswer = value.Substring(value.Length - 1);
                 OnPropertyChanged(nameof(CorrectAnswerProp));
             }
         }

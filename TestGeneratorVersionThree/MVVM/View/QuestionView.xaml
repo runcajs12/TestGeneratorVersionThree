@@ -34,11 +34,8 @@
         </StackPanel>
 
         <!-- Tabela z pytaniami -->
-        <DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="False" ItemsSource="{Binding Questions}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Pytanie" Binding="{Binding QuestionText}" />
-                <DataGridTextColumn Header="Odpowiedzi" Binding="{Binding Answers.Count}" />
-            </DataGrid.Columns>
+        <DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="True" 
+                  ItemsSource="{Binding Questions}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn">
         </DataGrid>
 
     </Grid>
