@@ -21,8 +21,10 @@ public class MainViewModel : Core.ViewModel
     public MainViewModel(INavigationService navService)
     {
         Navigation = navService;
-        NavigateToQuestionCommand = new RelayCommand(o => { Navigation.NavigateTo<QuestionViewModel>(); }, o => true);
-        NavigateToGenerateCommand = new RelayCommand(o => { Navigation.NavigateTo<GenerateViewModel>(); }, o => true);
+        //NavigateToQuestionCommand = new RelayCommand(o => { Navigation.NavigateTo<QuestionViewModel>(); }, o => true);
+        NavigateToQuestionCommand = new RelayCommand(o => { Navigation.NavigateTo<QuestionViewModel>(); });
+        //NavigateToGenerateCommand = new RelayCommand(o => { Navigation.NavigateTo<GenerateViewModel>(); }, o => true);
+        NavigateToGenerateCommand = new RelayCommand(o => { Navigation.NavigateTo<GenerateViewModel>(); });
 
     }
 }

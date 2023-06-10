@@ -3,12 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestGeneratorVersionThree.MVVM.ViewModel" 
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:AddQuestionViewModel}"
         ResizeMode="NoResize"
-        d:DataContext=""
         Title="AddQuestionView" Height="406" Width="769"
         >
     <Window.Resources>
+       
+        <local:AddQuestionViewModel x:Key="ViewModel" />
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Foreground" Value="Black" />
@@ -36,6 +39,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </Window.Resources>
+
     <Grid Margin="10" DataContext="">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -53,25 +57,25 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding Question}" />
-            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerA}" />
-             <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerB}" />
-             <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerC}" />
-             <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerD}" />
-            <ComboBox x:Name="correctAnswerTB" Style="{StaticResource ComboBoxStyle}" SelectedValue="{Binding CorrectAnswer}">
+            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp,Source={StaticResource ViewModel}}" />
+             <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerBProp,Source={StaticResource ViewModel}}" />
+             <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerCProp,Source={StaticResource ViewModel}}" />
+             <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerDProp,Source={StaticResource ViewModel}}" />
+            <ComboBox x:Name="correctAnswerTB" Style="{StaticResource ComboBoxStyle}" SelectedValue="{Binding CorrectAnswerProp,Source={StaticResource ViewModel}}">
                 <ComboBoxItem Content="A" />
                 <ComboBoxItem Content="B" />
                 <ComboBoxItem Content="C" />
                 <ComboBoxItem Content="D" />
             </ComboBox>
-            <ComboBox x:Name="categoryTB" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding selectedCategory}">
+            <ComboBox x:Name="categoryTB" Style="{StaticResource ComboBoxStyle}" SelectedValue="{Binding SelectedCategory,Source={StaticResource ViewModel}}">
                 <ComboBoxItem Content="Geometria analityczna" />
                 <ComboBoxItem Content="Kwantowanie cząstek alfa" />
                 <ComboBoxItem Content="Permutacje zbirów i podzbiorów także" />
                 <ComboBoxItem Content="Kwantowa chromodynamika " />
             </ComboBox>
             <Button Content="Dodaj pytanie" Style="{StaticResource CustomButtonStyle}" 
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand,Source={StaticResource ViewModel}}" />
         </StackPanel>
     </Grid>
 </Window>

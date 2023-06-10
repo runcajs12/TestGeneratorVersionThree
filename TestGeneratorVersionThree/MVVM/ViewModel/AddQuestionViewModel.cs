@@ -1,22 +1,23 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
-using TestGeneratorVersionThree.Core;
+using TestGeneratorVersionThree.Commands;
 using TestGeneratorVersionThree.MVVM.Model;
-using TestGeneratorVersionThree.MVVM.View;
 
 namespace TestGeneratorVersionThree.MVVM.ViewModel
 {
     public class AddQuestionViewModel : ViewModelBase
     {
-        public ICommand SaveCommand { get; set; }
+        public ICommand SaveCommand { get; }
 
         public AddQuestionViewModel()
         {
-            SaveCommand = new RelayCommand(SaveQuestion,o=>true);
+            SaveCommand = new Commands.RelayComand((param)=>SaveQuestion(param));
         }
 
         private void SaveQuestion(object parameter)
@@ -38,7 +39,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                 context.Questions.Add(question);
                 context.SaveChanges();
             }
-            //MessageBox.Show("Pytanie zostało dodane.");
+            MessageBox.Show("Pytanie zostało dodane.");
         }
         #region Properties
         private string _question;

@@ -22,10 +22,10 @@ public class RelayCommand : ICommand
         add => CommandManager.RequerySuggested += value;
         remove => CommandManager.RequerySuggested -= value;
     }
-    public bool CanExecute(object? parameter)
-    {
-        return _canExecute(parameter);
-    }
+    public bool CanExecute(object? parameter) => true;
+    //{
+    //    return _canExecute(parameter);
+    //}
 
     public void Execute(object? parameter)
     {
