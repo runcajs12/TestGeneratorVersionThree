@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestGeneratorVersionThree.MVVM.ViewModel;
 
 namespace TestGeneratorVersionThree
 {
@@ -23,6 +24,8 @@ namespace TestGeneratorVersionThree
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
+
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

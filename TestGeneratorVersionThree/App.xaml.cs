@@ -28,6 +28,7 @@ namespace TestGeneratorVersionThree
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<QuestionViewModel>();
             services.AddSingleton<GenerateViewModel>();
+            services.AddSingleton<CategoryViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
             
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider =>
