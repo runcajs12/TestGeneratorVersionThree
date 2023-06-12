@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,36 +14,96 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
 {
     public class AddQuestionViewModel : ViewModelBase
     {
+
         public ICommand SaveCommand { get; }
 
         public AddQuestionViewModel()
         {
             SaveCommand = new Commands.RelayComand((param)=>SaveQuestion(param));
+          
         }
+
+        public AddQuestionViewModel(int _id)
+        {
+            SaveCommand = new Commands.RelayComand((param) => SaveQuestion(param));
+            Id = _id;
+            using (var context = new Data.AppDbContext())
+            {
+                EditQuestionModel = context.Questions.Where(q => q.Id == Id).FirstOrDefault();
+
+                QuestionProp = EditQuestionModel.QuestionText;
+                AnswerAProp = EditQuestionModel.AnswerA;
+                AnswerBProp = EditQuestionModel.AnswerB;
+                AnswerCProp = EditQuestionModel.AnswerC;
+                AnswerDProp = EditQuestionModel.AnswerD;
+            }
+
+        }
+
+
 
         private void SaveQuestion(object parameter)
         {
-           
-            using (var context = new Data.AppDbContext())
+            if (EditQuestionModel == null)
             {
-                var question = new QuestionModel
+                using (var context = new Data.AppDbContext())
                 {
-                    QuestionText = QuestionProp,
-                    AnswerA = AnswerAProp,
-                    AnswerB = AnswerBProp,
-                    AnswerC = AnswerCProp,
-                    AnswerD = AnswerDProp,
-                    CorrectAnswer = _correctAnswer,
-                    Category=SelectedCategory     
-                };
-                
-                context.Questions.Add(question);
-                context.SaveChanges();
-            }
-            MessageBox.Show("Pytanie zostało dodane.");
+                    var question = new QuestionModel
+                    {
+                        QuestionText = QuestionProp,
+                        AnswerA = AnswerAProp,
+                        AnswerB = AnswerBProp,
+                        AnswerC = AnswerCProp,
+                        AnswerD = AnswerDProp,
+                        CorrectAnswer = _correctAnswer,
+                        Category = SelectedCategory
+                    };
 
+                    context.Questions.Add(question);
+                    context.SaveChanges();
+                }
+                MessageBox.Show("Pytanie zostało dodane.");
+            }
+            else
+            {
+                using (var context = new Data.AppDbContext())
+                {
+                    var question = context.Questions.Where(q => q.Id == Id).FirstOrDefault();
+
+                    question.QuestionText = QuestionProp;
+                    question.AnswerA = AnswerAProp;
+                    question.AnswerB = AnswerBProp;
+                    question.AnswerC = AnswerCProp;
+                    question.AnswerD = AnswerDProp;
+                    question.CorrectAnswer = _correctAnswer;
+                        question.Category = SelectedCategory;
+
+
+                    
+                    context.SaveChanges();
+                }
+                MessageBox.Show("Pytanie zostało edytowane.");
+            }
         }
         #region Properties
+        private int? _id;
+        public int? Id
+        {
+            get { return _id; }
+            set { _id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+        }
+
+        private QuestionModel _editQuestionModel;
+        public QuestionModel EditQuestionModel
+        {
+            get { return _editQuestionModel; }
+            set { _editQuestionModel = value;
+                OnPropertyChanged(nameof(EditQuestionModel));
+            }
+        }
+
         private string _question;
         public string QuestionProp
         {

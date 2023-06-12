@@ -22,8 +22,18 @@ namespace TestGeneratorVersionThree.MVVM.View
     {
         public AddQuestionView()
         {
-            DataContext = new AddQuestionViewModel();
             InitializeComponent();
+            
+            DataContext = new AddQuestionViewModel();
+            
+        }
+
+        public AddQuestionView(int id)
+        {
+            InitializeComponent();
+            DataContext = new AddQuestionViewModel(id);
+           
+            
         }
 
         public void xDPozdro() { }

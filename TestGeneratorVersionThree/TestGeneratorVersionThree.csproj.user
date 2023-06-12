@@ -16,5 +16,8 @@
     <Page Update="MVVM\View\CategoryView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="MVVM\View\Category1View.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>
