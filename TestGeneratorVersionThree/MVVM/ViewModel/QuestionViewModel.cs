@@ -15,7 +15,7 @@ public class QuestionViewModel : Core.ViewModel
 
     public ICommand AddQuestionCommand { get; set; }
     //public ICommand SearchCommand { get; set; }
-    //public ICommand EditQuestionCommand { get; set; }
+    public ICommand EditQuestionCommand { get; set; }
     //public ICommand DeleteQuestionCommand { get; set; }
     //public ICommand Questions { get; set; }
     //public ICommand QuestionText { get; set; }
@@ -23,6 +23,7 @@ public class QuestionViewModel : Core.ViewModel
 
     public QuestionViewModel()
     {
+        EditQuestionCommand = new RelayCommand(OpenEditQuestionWindow);
         AddQuestionCommand = new RelayCommand(OpenAddQuestionWindow); // Inicjalizacja polecenia OpenAddQuestionWindow
         Questions = new ObservableCollection<QuestionModel>(); // Inicjalizacja właściwości reprezentującej listę pytań pobraną z bazy
         LoadQuestion();
@@ -32,6 +33,16 @@ public class QuestionViewModel : Core.ViewModel
         AddQuestionView addQuestionViewWindow= new AddQuestionView();
             addQuestionViewWindow.ShowDialog();
 
+    }
+
+    private void OpenEditQuestionWindow(object parameter)
+    {
+
+        if (selectedQuestion != null)
+        {
+            AddQuestionView addQuestionViewWindow = new AddQuestionView(selectedQuestion.Id);
+            addQuestionViewWindow.ShowDialog();
+        }
     }
 
     private void LoadQuestion()
@@ -52,6 +63,17 @@ public class QuestionViewModel : Core.ViewModel
         {
             _questions = value;
             OnPropertyChanged(nameof(Questions));
+        }
+    }
+
+    private QuestionModel selectedQuestion;
+    public QuestionModel SelectedQuestion
+    {
+        get { return selectedQuestion; }
+        set
+        {
+            selectedQuestion = value;
+            OnPropertyChanged(nameof(SelectedQuestion));
         }
     }
     #endregion

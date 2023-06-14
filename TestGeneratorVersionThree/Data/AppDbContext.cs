@@ -16,7 +16,7 @@ namespace TestGeneratorVersionThree.Data
 
 
         //string dbPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Data\\TestGeneratorDB.db";
-        string dbPath = @"D:/TestGeneratorDB.db";
+        string dbPath = @"C:/GIT/TestGeneratorDB.db";
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

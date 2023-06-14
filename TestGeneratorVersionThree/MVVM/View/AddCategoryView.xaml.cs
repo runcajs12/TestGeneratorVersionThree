@@ -16,26 +16,14 @@ using TestGeneratorVersionThree.MVVM.ViewModel;
 namespace TestGeneratorVersionThree.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for AddQuestionView.xaml
+    /// Interaction logic for AddCategoryView.xaml
     /// </summary>
-    public partial class AddQuestionView : Window
+    public partial class AddCategoryView : Window
     {
-        public AddQuestionView()
+        public AddCategoryView()
         {
             InitializeComponent();
-            
-            DataContext = new AddQuestionViewModel();
-            
+            DataContext = new AddCategoryViewModel();
         }
-
-        public AddQuestionView(int id)
-        {
-            InitializeComponent();
-            DataContext = new AddQuestionViewModel(id);
-           
-            
-        }
-
-        public void xDPozdro() { }
     }
 }

@@ -29,9 +29,9 @@
         </StackPanel>
 
         <!-- Tabela z pytaniami -->
-        <!--<DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="True" 
-                  ItemsSource="{Binding Questions}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn">
-        </DataGrid>-->
+        <DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="True" 
+                  ItemsSource="{Binding Categories}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn">
+        </DataGrid>
 
     </Grid>
 </UserControl>
