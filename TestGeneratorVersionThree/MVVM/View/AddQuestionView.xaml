@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:AddQuestionViewModel}"
         ResizeMode="NoResize"
-        Title="AddQuestionView" Height="406" Width="769"
+        Title="AddQuestionView" Height="458" Width="762"
         >
     <Window.Resources>
 
@@ -61,21 +61,21 @@
         <StackPanel Grid.Column="1">
             <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModel}}" />
             <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp,Source={StaticResource ViewModel}}" />
-             <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerBProp,Source={StaticResource ViewModel}}" />
-             <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerCProp,Source={StaticResource ViewModel}}" />
-             <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerDProp,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerBProp,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerCProp,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerDProp,Source={StaticResource ViewModel}}" />
             <ComboBox x:Name="correctAnswerTB" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding CorrectAnswerProp,Source={StaticResource ViewModel}}">
                 <ComboBoxItem Content="A" />
                 <ComboBoxItem Content="B" />
                 <ComboBoxItem Content="C" />
                 <ComboBoxItem Content="D" />
             </ComboBox>
-            <ComboBox x:Name="categoryTB" Style="{StaticResource ComboBoxStyle}" SelectedValue="{Binding SelectedCategory,Source={StaticResource ViewModel}}">
-                <ComboBoxItem Content="Geometria analityczna" />
-                <ComboBoxItem Content="Kwantowanie cząstek alfa" />
-                <ComboBoxItem Content="Permutacje zbirów i podzbiorów także" />
-                <ComboBoxItem Content="Kwantowa chromodynamika " />
+            <ComboBox x:Name="categoryComboBox" Style="{StaticResource ComboBoxStyle}" 
+                ItemsSource="{Binding Categories,Source={StaticResource ViewModel}}" 
+                SelectedItem="{Binding SelectedCategory, Mode=TwoWay,Source={StaticResource ViewModel},UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="CategoryName">
             </ComboBox>
+
             <Button Content="Dodaj pytanie" Style="{StaticResource CustomButtonStyle}" 
                     Command="{Binding SaveCommand,Source={StaticResource ViewModel}}" />
         </StackPanel>

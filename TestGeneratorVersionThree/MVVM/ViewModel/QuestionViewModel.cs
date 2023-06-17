@@ -16,7 +16,7 @@ public class QuestionViewModel : Core.ViewModel
     public ICommand AddQuestionCommand { get; set; }
     //public ICommand SearchCommand { get; set; }
     public ICommand EditQuestionCommand { get; set; }
-    //public ICommand DeleteQuestionCommand { get; set; }
+    public ICommand DeleteQuestionCommand { get; set; }
     //public ICommand Questions { get; set; }
     //public ICommand QuestionText { get; set; }
     //public ICommand Answers { get; set; }
@@ -24,10 +24,28 @@ public class QuestionViewModel : Core.ViewModel
     public QuestionViewModel()
     {
         EditQuestionCommand = new RelayCommand(OpenEditQuestionWindow);
+        DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
         AddQuestionCommand = new RelayCommand(OpenAddQuestionWindow); // Inicjalizacja polecenia OpenAddQuestionWindow
         Questions = new ObservableCollection<QuestionModel>(); // Inicjalizacja właściwości reprezentującej listę pytań pobraną z bazy
         LoadQuestion();
     }
+    // Usuwanie pytania
+    private void DeleteQuestion(object parameter)
+    {
+        MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć pytanie?", 
+            "Potwierdzenie usunięcia", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (SelectedQuestion != null && result == MessageBoxResult.Yes) 
+        {
+            using (var context = new Data.AppDbContext())
+            {
+                context.Questions.Remove(SelectedQuestion);
+                context.SaveChanges();
+            }
+        }
+        LoadQuestion();
+    }
+
+    // Otwieranie okna z dodawaniem pytania
     private void OpenAddQuestionWindow(object parameter)
     {
         AddQuestionView addQuestionViewWindow= new AddQuestionView();
@@ -44,7 +62,7 @@ public class QuestionViewModel : Core.ViewModel
             addQuestionViewWindow.ShowDialog();
         }
     }
-
+    // Ładowanie pytań z bazy
     private void LoadQuestion()
     {
         using (var context = new Data.AppDbContext())

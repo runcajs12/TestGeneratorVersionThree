@@ -16,7 +16,7 @@ namespace TestGeneratorVersionThree.Data
 
 
         //string dbPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\Data\\TestGeneratorDB.db";
-        string dbPath = @"C:/GIT/TestGeneratorDB.db";
+        string dbPath = @"D:/TestGeneratorDB.db";
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,10 +27,16 @@ namespace TestGeneratorVersionThree.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<QuestionModel>()
-                .HasOne(qm => qm.Category)
-                .WithMany(c => c.Questions)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<QuestionModel>()
+            //    .HasOne(qm => qm.Category)
+            //    .WithMany(c => c.Questions).
+            //    HasForeignKey(q => q.Id); 
+
+            //modelBuilder.Entity<QuestionModel>()
+            //.HasKey(q => q.Id); 
+
+            //modelBuilder.Entity<CategoryModel>()
+            //    .HasKey(c => c.Id); 
         }
 
     }

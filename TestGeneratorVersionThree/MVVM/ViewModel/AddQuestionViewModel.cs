@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -16,9 +17,12 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
     {
 
         public ICommand SaveCommand { get; }
+        public event EventHandler QuestionAdded;
+
 
         public AddQuestionViewModel()
         {
+            LoadCategories();
             SaveCommand = new Commands.RelayComand((param)=>SaveQuestion(param));
           
         }
@@ -40,29 +44,53 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
 
         }
 
+        private void LoadCategories()
+        {
+            using (var context = new Data.AppDbContext())
+            {
+                var categories = context.Categories.ToList();
+                Categories = new ObservableCollection<CategoryModel>(categories);
+            }
 
+        }
 
         private void SaveQuestion(object parameter)
         {
             if (EditQuestionModel == null)
             {
+                int newId; CategoryModel category = default;
                 using (var context = new Data.AppDbContext())
                 {
+                    newId = context.Questions.Max(q => q.Id) + 1;
+
+                    if (SelectedCategory != null)
+                    {
+                      category = context.Categories.FirstOrDefault(c => c.Id == SelectedCategory.Id);
+
+                    }
+                  
                     var question = new QuestionModel
                     {
+                        Id = newId,
                         QuestionText = QuestionProp,
                         AnswerA = AnswerAProp,
                         AnswerB = AnswerBProp,
                         AnswerC = AnswerCProp,
                         AnswerD = AnswerDProp,
                         CorrectAnswer = _correctAnswer,
-                        Category = SelectedCategory
+                        Category = category
                     };
+
+                    //var category = SelectedCategory;
+                    //category.Questions.Add(question);
+
 
                     context.Questions.Add(question);
                     context.SaveChanges();
                 }
-                MessageBox.Show("Pytanie zostało dodane.");
+                //MessageBox.Show("Pytanie zostało dodane.");
+                QuestionAdded?.Invoke(this, EventArgs.Empty);
+
             }
             else
             {
@@ -76,7 +104,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                     question.AnswerC = AnswerCProp;
                     question.AnswerD = AnswerDProp;
                     question.CorrectAnswer = _correctAnswer;
-                        question.Category = SelectedCategory;
+                    question.Category = SelectedCategory;
 
 
                     
@@ -101,6 +129,16 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
             get { return _editQuestionModel; }
             set { _editQuestionModel = value;
                 OnPropertyChanged(nameof(EditQuestionModel));
+            }
+        }
+        private ObservableCollection<CategoryModel> _categories;
+        public ObservableCollection<CategoryModel> Categories
+        {
+            get { return _categories; }
+            set
+            {
+                _categories = value;
+                OnPropertyChanged(nameof(Categories));
             }
         }
 

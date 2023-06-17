@@ -22,8 +22,10 @@ namespace TestGeneratorVersionThree.MVVM.View
     {
         public AddCategoryView()
         {
+
             InitializeComponent();
             DataContext = new AddCategoryViewModel();
         }
+
     }
 }

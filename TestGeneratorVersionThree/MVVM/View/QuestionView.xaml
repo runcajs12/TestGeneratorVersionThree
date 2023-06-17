@@ -37,7 +37,7 @@
         <DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="True" 
                   ItemsSource="{Binding Questions}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
                   IsReadOnly="True"
-                  SelectedItem="{Binding SelectedQuestion}">
+                  SelectedItem="{Binding SelectedQuestion}" >
         </DataGrid>
 
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestGeneratorVersionThree.Core;
+using TestGeneratorVersionThree.MVVM.Model;
 using TestGeneratorVersionThree.MVVM.ViewModel;
 
 namespace TestGeneratorVersionThree.MVVM.View
@@ -20,22 +23,39 @@ namespace TestGeneratorVersionThree.MVVM.View
     /// </summary>
     public partial class AddQuestionView : Window
     {
+     
+        public List<CategoryModel> Categories { get; set; }
+
         public AddQuestionView()
         {
             InitializeComponent();
-            
-            DataContext = new AddQuestionViewModel();
-            
-        }
+            //using (var context = new Data.AppDbContext())
+            //{
+            //    Categories = new List<CategoryModel>(context.Categories.ToList());
+            //}
+            //categoryComboBox.ItemsSource = Categories;
+            //categoryComboBox.DisplayMemberPath = "CategoryName";
+            //categoryComboBox.SelectedValuePath = "Id";
+            var addQuestionViewModel = new AddQuestionViewModel();
 
+            addQuestionViewModel.QuestionAdded += CloseAddQuestionView;
+
+            DataContext = addQuestionViewModel;
+
+            //DataContext = new AddQuestionViewModel();  
+        }
+        private void CloseAddQuestionView(object sender, EventArgs e)
+        {
+            // Zamknij okno
+            this.Close();
+        }
+   
         public AddQuestionView(int id)
         {
             InitializeComponent();
             DataContext = new AddQuestionViewModel(id);
-           
             
         }
 
-        public void xDPozdro() { }
     }
 }
