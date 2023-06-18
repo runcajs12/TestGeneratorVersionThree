@@ -85,8 +85,5 @@
             <view:CategoryView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:Category1ViewModel}">
-            <view:Category1View/>
-        </DataTemplate>
     </Application.Resources>
 </Application>

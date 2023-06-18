@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ public class QuestionViewModel : Core.ViewModel
 {
 
     public ICommand AddQuestionCommand { get; set; }
-    //public ICommand SearchCommand { get; set; }
+    public ICommand SearchCommand { get; set; }
     public ICommand EditQuestionCommand { get; set; }
     public ICommand DeleteQuestionCommand { get; set; }
     //public ICommand Questions { get; set; }
@@ -23,12 +24,28 @@ public class QuestionViewModel : Core.ViewModel
 
     public QuestionViewModel()
     {
+        SearchCommand = new RelayCommand(ExecuteSearch);
         EditQuestionCommand = new RelayCommand(OpenEditQuestionWindow);
         DeleteQuestionCommand = new RelayCommand(DeleteQuestion);
         AddQuestionCommand = new RelayCommand(OpenAddQuestionWindow); // Inicjalizacja polecenia OpenAddQuestionWindow
         Questions = new ObservableCollection<QuestionModel>(); // Inicjalizacja właściwości reprezentującej listę pytań pobraną z bazy
         LoadQuestion();
     }
+
+    private void ExecuteSearch(object parameter)
+    {
+        // Przykładowa implementacja wyszukiwania
+        
+        using (var context = new Data.AppDbContext())
+        {
+            var filteredQuestions = context.Questions.Where(q => q.QuestionText.Contains(SearchText)).ToList();
+            Questions = new ObservableCollection<QuestionModel>(filteredQuestions);
+        }
+        // Zaktualizuj listę pytań na podstawie wyników wyszukiwania
+        // (przykładowo przypisz do nowej właściwości QuestionsFiltered)
+       
+    }
+
     // Usuwanie pytania
     private void DeleteQuestion(object parameter)
     {
@@ -55,11 +72,10 @@ public class QuestionViewModel : Core.ViewModel
 
     private void OpenEditQuestionWindow(object parameter)
     {
-
         if (selectedQuestion != null)
         {
-            AddQuestionView addQuestionViewWindow = new AddQuestionView(selectedQuestion.Id);
-            addQuestionViewWindow.ShowDialog();
+            EditQuestionView editQuestionViewWindow = new EditQuestionView(selectedQuestion.Id);
+            editQuestionViewWindow.ShowDialog();
         }
     }
     // Ładowanie pytań z bazy
@@ -92,6 +108,18 @@ public class QuestionViewModel : Core.ViewModel
         {
             selectedQuestion = value;
             OnPropertyChanged(nameof(SelectedQuestion));
+        }
+    }
+
+    private string _searchText;
+    public string SearchText
+    {
+        get { return _searchText; }
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged(nameof(SearchText));
+            SearchCommand.Execute(null); // Wywołanie metody wyszukiwania przy każdej zmianie tekstu
         }
     }
     #endregion

@@ -3,9 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:TestGeneratorVersionThree.MVVM.View"
+             xmlns:local="clr-namespace:TestGeneratorVersionThree.MVVM.ViewModel" 
              mc:Ignorable="d"            
             >
+
+    <UserControl.Resources>
+
+        <!--<conv:ComboBoxItemValueConverter x:Key="Convert" />-->
+        <local:GenerateViewModel x:Key="ViewModel" />
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid Grid.Column="1" Margin="20" Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,8 +55,14 @@
         <!-- Wybór lizby pytań -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
             <Label Content="Wybierz liczbę pytań"  Margin="0,0,10,0"/>
-            <ComboBox Width="200" Margin="0,0,10,0" x:Name="QuestionNumber" SelectedIndex="0"/>
-            
+     
+            <ComboBox Width="200" Margin="0,0,10,0" x:Name="QuestionNumber" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding QuestionNumberProp,Source={StaticResource ViewModel}}">
+                <ComboBoxItem Content="5" />
+                <ComboBoxItem Content="10" />
+                <ComboBoxItem Content="15" />
+                <ComboBoxItem Content="20" />
+            </ComboBox>
+
         </StackPanel>
         <!-- Przyciski akcji -->
         <StackPanel Grid.Row="2" Orientation="Vertical" Margin="10" >

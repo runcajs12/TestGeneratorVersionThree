@@ -23,19 +23,10 @@ namespace TestGeneratorVersionThree.MVVM.View
     /// </summary>
     public partial class AddQuestionView : Window
     {
-     
-        public List<CategoryModel> Categories { get; set; }
 
         public AddQuestionView()
         {
             InitializeComponent();
-            //using (var context = new Data.AppDbContext())
-            //{
-            //    Categories = new List<CategoryModel>(context.Categories.ToList());
-            //}
-            //categoryComboBox.ItemsSource = Categories;
-            //categoryComboBox.DisplayMemberPath = "CategoryName";
-            //categoryComboBox.SelectedValuePath = "Id";
             var addQuestionViewModel = new AddQuestionViewModel();
 
             addQuestionViewModel.QuestionAdded += CloseAddQuestionView;

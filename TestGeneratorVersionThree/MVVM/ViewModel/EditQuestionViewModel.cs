@@ -1,35 +1,28 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
-using TestGeneratorVersionThree.Commands;
 using TestGeneratorVersionThree.MVVM.Model;
 
 namespace TestGeneratorVersionThree.MVVM.ViewModel
 {
-    public class AddQuestionViewModel : ViewModelBase
+    public class EditQuestionViewModel : ViewModelBase
     {
-
-        public ICommand SaveCommand { get; }
-        public event EventHandler QuestionAdded;
-
-
-        public AddQuestionViewModel()
-        {          
-            LoadCategories();
-            SaveCommand = new Commands.RelayComand((param)=>SaveQuestion());
-          
-        }
-
-        public AddQuestionViewModel(int _id)
+        public ICommand SaveChangesCommand { get; }
+        public EditQuestionViewModel()
         {
-            SaveCommand = new Commands.RelayComand((param) => SaveQuestion());
+            LoadCategories();
+            
+        }
+        public EditQuestionViewModel(int? _id)
+        {
+            LoadCategories();
             Id = _id;
             using (var context = new Data.AppDbContext())
             {
@@ -40,7 +33,14 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                 AnswerBProp = EditQuestionModel.AnswerB;
                 AnswerCProp = EditQuestionModel.AnswerC;
                 AnswerDProp = EditQuestionModel.AnswerD;
+                CorrectAnswerProp= EditQuestionModel.CorrectAnswer;
+                SelectedCategory = EditQuestionModel.Category;
             }
+            SaveChangesCommand = new Commands.RelayComand((param) => UpdateQuestion());
+        }
+
+        private void UpdateQuestion()
+        {
 
         }
 
@@ -53,48 +53,14 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
             }
 
         }
-
-        private void SaveQuestion()
-        {
-           
-                int newId; CategoryModel category = default;
-                using (var context = new Data.AppDbContext())
-                {
-                    newId = context.Questions.Max(q => q.Id) + 1;
-
-                    if (SelectedCategory != null)
-                    {
-                      category = context.Categories.FirstOrDefault(c => c.Id == SelectedCategory.Id);
-
-                    }
-                  
-                    var question = new QuestionModel
-                    {
-                        Id = newId,
-                        QuestionText = QuestionProp,
-                        AnswerA = AnswerAProp,
-                        AnswerB = AnswerBProp,
-                        AnswerC = AnswerCProp,
-                        AnswerD = AnswerDProp,
-                        CorrectAnswer = _correctAnswer,
-                        Category = category
-                    };
-                    //var category = SelectedCategory;
-                    //category.Questions.Add(question);
-                    context.Questions.Add(question);
-                    context.SaveChanges();
-                }
-                MessageBox.Show("Pytanie zostało dodane.");
-                QuestionAdded?.Invoke(this, EventArgs.Empty);
-          
-
-        }
         #region Properties
         private int? _id;
         public int? Id
         {
             get { return _id; }
-            set { _id = value;
+            set
+            {
+                _id = value;
                 OnPropertyChanged(nameof(Id));
             }
         }
@@ -103,7 +69,9 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
         public QuestionModel EditQuestionModel
         {
             get { return _editQuestionModel; }
-            set { _editQuestionModel = value;
+            set
+            {
+                _editQuestionModel = value;
                 OnPropertyChanged(nameof(EditQuestionModel));
             }
         }
@@ -212,4 +180,3 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
         #endregion
     }
 }
-

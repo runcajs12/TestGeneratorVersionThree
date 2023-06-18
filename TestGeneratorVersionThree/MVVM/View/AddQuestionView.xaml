@@ -59,11 +59,11 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModel}}" />
-            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp,Source={StaticResource ViewModel}}" />
-            <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerBProp,Source={StaticResource ViewModel}}" />
-            <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerCProp,Source={StaticResource ViewModel}}" />
-            <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerDProp,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp,Source={StaticResource ViewModel}, Mode=TwoWay}" />
+            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp, Source={StaticResource ViewModel}, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding  AnswerBProp, Source={StaticResource ViewModel}, Mode=TwoWay}" />
+            <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding  AnswerCProp, Source={StaticResource ViewModel}, Mode=TwoWay}" />
+            <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding  AnswerDProp, Source={StaticResource ViewModel}, Mode=TwoWay}" />
             <ComboBox x:Name="correctAnswerTB" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding CorrectAnswerProp,Source={StaticResource ViewModel}}">
                 <ComboBoxItem Content="A" />
                 <ComboBoxItem Content="B" />
