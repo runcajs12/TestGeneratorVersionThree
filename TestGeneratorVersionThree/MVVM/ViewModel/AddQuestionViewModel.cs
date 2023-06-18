@@ -91,6 +91,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                 }
                 //MessageBox.Show("Pytanie zostało dodane.");
                 QuestionAdded?.Invoke(this, EventArgs.Empty);
+                
 
             }
             else
