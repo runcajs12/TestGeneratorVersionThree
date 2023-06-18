@@ -22,8 +22,9 @@
                    Text="Zarządzanie pytaniami" Foreground="White" />
 
         <!-- Przycisk wyszukiwania -->
+
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
-            <TextBox Width="200" Margin="0,0,10,0" Text="{Binding SearchText}" />
+            <TextBox Width="200" Margin="0,0,10,0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
             <Button Style="{StaticResource CustomMiniButtonStyle}" Content="Szukaj" Command="{Binding SearchCommand}" />
         </StackPanel>
         <!-- Przyciski akcji -->

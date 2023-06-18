@@ -59,8 +59,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp,UpdateSourceTrigger=PropertyChanged,Source={StaticResource ViewModel}}" />
-            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp,Source={StaticResource ViewModel}}" />
+            <TextBox x:Name="questionTB" Style="{StaticResource TextBoxStyle}" Text="{Binding QuestionProp, Mode=TwoWay}" />
+            <TextBox x:Name="answerATB"  Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerAProp, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox x:Name="answerBTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerBProp,Source={StaticResource ViewModel}}" />
             <TextBox x:Name="answerCTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerCProp,Source={StaticResource ViewModel}}" />
             <TextBox x:Name="answerDTB" Style="{StaticResource TextBoxStyle}" Text="{Binding AnswerDProp,Source={StaticResource ViewModel}}" />
