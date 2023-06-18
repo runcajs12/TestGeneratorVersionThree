@@ -27,7 +27,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
                 {
                     var category = new CategoryModel
                     {
-                       CategoryName = categoryTB
+                       CategoryName = CategoryProp
                     };
 
                     context.Categories.Add(category);
@@ -39,7 +39,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
 
         #region Properties
         private string _category;
-        public string categoryTB
+        public string CategoryProp
         {
             get
             {
@@ -48,7 +48,7 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
             set
             {
                 _category = value;
-                OnPropertyChanged(nameof(categoryTB));
+                OnPropertyChanged(nameof(CategoryProp));
             }
         }
         #endregion

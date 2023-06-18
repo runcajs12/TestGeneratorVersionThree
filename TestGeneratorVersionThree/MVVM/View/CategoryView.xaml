@@ -30,8 +30,13 @@
 
         <!-- Tabela z pytaniami -->
         <DataGrid Grid.Row="3" Margin="10" AutoGenerateColumns="True" 
-                  ItemsSource="{Binding Categories}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn">
+                  ItemsSource="{Binding Categories}" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  IsReadOnly="True"
+                  SelectedItem="{Binding SelectedCategory}" >
+
         </DataGrid>
 
+
+        
     </Grid>
 </UserControl>
