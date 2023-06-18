@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TestGeneratorVersionThree.Commands;
 using TestGeneratorVersionThree.Core;
 using TestGeneratorVersionThree.MVVM.Model;
 using TestGeneratorVersionThree.MVVM.View;
@@ -14,10 +15,12 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel;
 public class CategoryViewModel : Core.ViewModel
 {
     public ICommand AddCategoryCommand { get; set; }
+    public ICommand DeleteCategoryCommand { get; set; }
 
     public CategoryViewModel()
     {
-        AddCategoryCommand = new RelayCommand(OpenAddCategoryWindow); // Inicjalizacja polecenia OpenAddQuestionWindow
+        AddCategoryCommand = new RelayComand(OpenAddCategoryWindow); // Inicjalizacja polecenia OpenAddQuestionWindow
+        DeleteCategoryCommand = new RelayCommand(DeleteCategory);
         Categories = new ObservableCollection<CategoryModel>();
         LoadCategories();
     }
@@ -27,6 +30,21 @@ public class CategoryViewModel : Core.ViewModel
         AddCategoryView addCategoryViewWindow = new AddCategoryView();
         addCategoryViewWindow.ShowDialog();
 
+    }
+
+    private void DeleteCategory(object parameter)
+    {
+        MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć kategorię?",
+            "Potwierdzenie usunięcia", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (SelectedCategory != null && result == MessageBoxResult.Yes)
+        {
+            using (var context = new Data.AppDbContext())
+            {
+                context.Categories.Remove(SelectedCategory);
+                context.SaveChanges();
+            }
+        }
+        LoadCategories();
     }
 
     private void LoadCategories()
@@ -48,6 +66,17 @@ public class CategoryViewModel : Core.ViewModel
         {
             _categories = value;
             OnPropertyChanged(nameof(Categories));
+        }
+    }
+
+    private CategoryModel selectedCategory;
+    public CategoryModel SelectedCategory
+    {
+        get { return selectedCategory; }
+        set
+        {
+            selectedCategory = value;
+            OnPropertyChanged(nameof(SelectedCategory));
         }
     }
 }

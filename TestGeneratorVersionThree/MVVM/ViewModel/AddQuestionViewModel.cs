@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using TestGeneratorVersionThree.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TestGeneratorVersionThree.Commands;
+//using TestGeneratorVersionThree.Commands;
 using TestGeneratorVersionThree.MVVM.Model;
+using TestGeneratorVersionThree.Commands;
 
 namespace TestGeneratorVersionThree.MVVM.ViewModel
 {
@@ -23,13 +24,13 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
         public AddQuestionViewModel()
         {
             LoadCategories();
-            SaveCommand = new Commands.RelayComand((param)=>SaveQuestion(param));
+            SaveCommand = new RelayComand((param)=>SaveQuestion(param));
           
         }
 
         public AddQuestionViewModel(int _id)
         {
-            SaveCommand = new Commands.RelayComand((param) => SaveQuestion(param));
+            SaveCommand = new RelayCommand((param) => SaveQuestion(param));
             Id = _id;
             using (var context = new Data.AppDbContext())
             {

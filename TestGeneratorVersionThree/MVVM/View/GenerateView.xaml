@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TestGeneratorVersionThree.MVVM.ViewModel" 
              mc:Ignorable="d"            
+             d:DataContext="{d:DesignInstance Type=local:GenerateViewModel}"
             >
 
     <UserControl.Resources>
@@ -56,7 +57,8 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
             <Label Content="Wybierz liczbę pytań"  Margin="0,0,10,0"/>
      
-            <ComboBox Width="200" Margin="0,0,10,0" x:Name="QuestionNumber" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding QuestionNumberProp,Source={StaticResource ViewModel}}">
+            <ComboBox Width="200" Margin="0,0,10,0" x:Name="QuestionNumber" Style="{StaticResource ComboBoxStyle}"
+                      SelectedItem="{Binding QuestionNumberProp,Source={StaticResource ViewModel}}">
                 <ComboBoxItem Content="5" />
                 <ComboBoxItem Content="10" />
                 <ComboBoxItem Content="15" />
@@ -77,7 +79,12 @@
             <Button Width="500" Height="50" HorizontalAlignment="Center"  Style="{StaticResource CustomButtonStyle}" Content="Generuj"  Command="{Binding GenerateCommand}" />
           
         </StackPanel>
-
+        <ComboBox x:Name="correctAnswerTB" Style="{StaticResource ComboBoxStyle}" SelectedItem="{Binding CorrectAnswerProp,Source={StaticResource ViewModel}}">
+            <ComboBoxItem Content="A" />
+            <ComboBoxItem Content="B" />
+            <ComboBoxItem Content="C" />
+            <ComboBoxItem Content="D" />
+        </ComboBox>
 
     </Grid>
 </UserControl>
