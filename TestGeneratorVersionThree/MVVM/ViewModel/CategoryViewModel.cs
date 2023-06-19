@@ -40,8 +40,10 @@ public class CategoryViewModel : Core.ViewModel
         {
             using (var context = new Data.AppDbContext())
             {
+                
                 context.Categories.Remove(SelectedCategory);
                 context.SaveChanges();
+
             }
         }
         LoadCategories();

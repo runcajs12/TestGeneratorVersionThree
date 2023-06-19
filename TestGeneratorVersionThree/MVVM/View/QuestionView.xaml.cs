@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 using TestGeneratorVersionThree.MVVM.ViewModel;
 
 namespace TestGeneratorVersionThree.MVVM.View;
@@ -24,5 +27,7 @@ public partial class QuestionView : UserControl
             }
         }
     }
+
+  
 
 }

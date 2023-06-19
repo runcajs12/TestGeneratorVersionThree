@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using TestGeneratorVersionThree.Core;
 using TestGeneratorVersionThree.MVVM.Model;
@@ -124,4 +127,26 @@ public class QuestionViewModel : Core.ViewModel
     }
     #endregion
 
+    #region Converter
+    public class CategoryConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int categoryId = (int)value;
+
+            // Tutaj możesz zaimplementować logikę pobierania nazwy kategorii na podstawie jej identyfikatora
+            // Możesz użyć kontekstu bazy danych lub innych mechanizmów dostępu do danych
+            // W tym przykładzie zakładam, że masz kolekcję kategorii przechowywaną w QuestionViewModel
+            using var context = new Data.AppDbContext();
+            var category = context.Categories.FirstOrDefault(c => c.Id == categoryId);
+
+            return category?.CategoryName;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #endregion
 }

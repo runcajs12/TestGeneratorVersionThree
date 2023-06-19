@@ -85,5 +85,6 @@
             <view:CategoryView/>
         </DataTemplate>
 
+        
     </Application.Resources>
 </Application>

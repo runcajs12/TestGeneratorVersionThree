@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -41,7 +43,20 @@ namespace TestGeneratorVersionThree.MVVM.ViewModel
 
         private void UpdateQuestion()
         {
-
+            using (var context = new Data.AppDbContext())
+            {
+                EditQuestionModel = context.Questions.Where(q => q.Id == Id).FirstOrDefault();
+                EditQuestionModel.QuestionText = QuestionProp;
+                EditQuestionModel.AnswerA = AnswerAProp;
+                EditQuestionModel.AnswerB = AnswerBProp;
+                EditQuestionModel.AnswerC = AnswerCProp;
+                EditQuestionModel.AnswerD = AnswerDProp;
+                EditQuestionModel.CorrectAnswer = CorrectAnswerProp;
+                EditQuestionModel.Category = SelectedCategory;  
+                context.SaveChanges();
+            }
+            MessageBox.Show("Pytanie zostało edytowane");
+               
         }
 
         private void LoadCategories()
